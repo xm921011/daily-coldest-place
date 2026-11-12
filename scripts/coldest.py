@@ -7,7 +7,9 @@
       是全球候选点采样的最小值，不是全球连续温度场的数学最小值，也不是气象站实测记录。
 
 本脚本只负责查询与生成文件，提交由工作流里的 git 步骤完成：
-  data/latest.json      结构化结果
+  data/latest.json      结构化结果（含最冷 Top10 与当前温度）
+  data/top10.json       每日最冷 10 地的独立结构化数据
+  TOP10.md              每日最冷 10 地榜单（每个地方标注当前温度）
   history/YYYY-MM.md    当月每日一行，同日重复运行覆盖当天行（幂等）
   README.md             替换 <!-- LATEST_START --> ... <!-- LATEST_END --> 区块
   $GITHUB_STEP_SUMMARY  Actions 运行页摘要（本地无此变量时跳过）
@@ -28,6 +30,7 @@ API = "https://api.open-meteo.com/v1/forecast"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BATCH_SIZE = 20
 MIN_VALID_RATIO = 0.60
+TOP_N = 10  # 每日最冷 10 个地方
 
 # 具名站点：公认的极寒地区 / 有历史观测记录的站点
 NAMED = [
@@ -164,12 +167,15 @@ def build_block(res):
         "数据时刻：%s（北京时间）｜候选点 %d 个、有效 %d 个、缺失 %d 个｜数据源：Open-Meteo 模式近地面 2m 气温"
         % (res["observed_at_bj"], res["candidate_count"], res["valid_count"], res["missing_count"]),
         "",
-        "| 排名 | 地点 | 气温 | 类型 |",
-        "| --- | --- | --- | --- |",
+        "| 排名 | 地方 | 当前温度 | 坐标 | 类型 |",
+        "| --- | --- | --- | --- | --- |",
     ]
     for i, r in enumerate(res["top10"], 1):
-        lines.append("| %d | %s | %.1f °C | %s |" % (i, r["label"], r["temp"], "站点" if r["kind"] == "named" else "格点"))
+        lines.append("| %d | %s | %.1f °C | %s | %s |" % (
+            i, r["label"], r["temp"], r["coord"], "站点" if r["kind"] == "named" else "格点"))
     lines += [
+        "",
+        "**每日最冷 10 个地方的完整榜单（含每个地方的当前温度、具名地点榜）见仓库 `TOP10.md`。**",
         "",
         "具名站点最冷前三：" + "；".join("%s %.1f °C" % (r["label"], r["temp"]) for r in res["named_top3"]) + "。",
         "",
@@ -184,6 +190,97 @@ def write_json(path, obj):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
         f.write("\n")
+
+
+def build_top10_md(res):
+    """每日最冷 10 个地方：逐个标注当前温度，另附具名地点榜与口径说明。"""
+    lines = [
+        "# 今日世界最冷 10 个地方 · %s（北京时间）" % res["date_bj"],
+        "",
+        "当前温度的数据时刻：**%s（北京时间）**；单位：**°C**；数据源：Open-Meteo 模式近地面 2m 气温。" % res["observed_at_bj"],
+        "",
+        "本页每天由 GitHub Actions 自动更新；候选点共 %d 个，本次有效 %d 个、缺失 %d 个。"
+        % (res["candidate_count"], res["valid_count"], res["missing_count"]),
+        "",
+        "## 一、全体候选点最冷 10 地（按当前温度从低到高）",
+        "",
+        "| 排名 | 地方 | 当前温度 | 坐标 | 所在区域 | 类型 |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ]
+    for i, r in enumerate(res["top10"], 1):
+        lines.append("| %d | %s | %.1f °C | %s | %s | %s |" % (
+            i, r["label"], r["temp"], r["coord"], r["region"],
+            "具名站点" if r["kind"] == "named" else "网格点"))
+    lines += [
+        "",
+        "## 二、具名地点最冷 10 地（有正式地名，不掺网格点）",
+        "",
+        "| 排名 | 地点 | 当前温度 | 坐标 | 所在区域 |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for i, r in enumerate(res["named_top10"], 1):
+        lines.append("| %d | %s | %.1f °C | %s | %s |" % (
+            i, r["label"], r["temp"], r["coord"], r["region"]))
+    lines += [
+        "",
+        "## 「当前温度」怎么读",
+        "",
+        "- 当前温度 = 数据时刻 %s（北京时间）该点近地面 2 米气温的模式分析/预报值，单位 °C，保留 1 位小数；"
+        "不是体感温度，也不是气象站实测值。" % res["observed_at_bj"],
+        "- 排名口径：在 %d 个固定候选点（27 个具名极寒站点 + 48 个南极高原格点 + 4 个格陵兰内陆格点）中，"
+        "按当前温度升序取最冷的 10 个。" % res["candidate_count"],
+        "- 网格点用于捕捉无名极寒区；格点若贴近具名站点（<1.5°）会显示为「XX 附近格点」。",
+        "- 地球有观测记录以来的最低气温为南极沃斯托克站 −89.2 °C（1983-07-21），与这里的模式值不是同一口径。",
+        "- 接口失败会重试 3 次；有效点不足 60% 时本次运行直接失败，不会用残缺数据生成榜单。",
+        "",
+        "结构化数据：`data/top10.json`；每日历史：`history/%s.md`。" % res["date_bj"][:7],
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def write_top10(res, md):
+    """写出 TOP10.md 与 data/top10.json（每个地方都带当前温度与单位）。"""
+    def pack(items, with_kind):
+        out = []
+        for i, r in enumerate(items, 1):
+            d = {
+                "rank": i,
+                "place": r["label"],
+                "current_temp_c": r["temp"],
+                "unit": "°C",
+                "coord": r["coord"],
+                "lat": round(r["lat"], 4),
+                "lon": round(r["lon"], 4),
+                "region": r["region"],
+                "observed_at_bj": res["observed_at_bj"],
+            }
+            if with_kind:
+                d["kind"] = r["kind"]
+            out.append(d)
+        return out
+
+    payload = {
+        "date_bj": res["date_bj"],
+        "generated_at_bj": res["generated_at_bj"],
+        "observed_at_bj": res["observed_at_bj"],
+        "observed_at_utc": res["observed_at_utc"],
+        "candidate_count": res["candidate_count"],
+        "valid_count": res["valid_count"],
+        "missing_count": res["missing_count"],
+        "unit": "°C",
+        "source": res["source"],
+        "top10": pack(res["top10"], True),
+        "named_top10": pack(res["named_top10"], False),
+    }
+    write_json(os.path.join(ROOT, "data", "top10.json"), payload)
+    p = os.path.join(ROOT, "TOP10.md")
+    old = open(p, encoding="utf-8").read() if os.path.isfile(p) else None
+    if old != md:
+        open(p, "w", encoding="utf-8", newline="\n").write(md)
+        print("[ok] 更新 TOP10.md")
+    print("[ok] 更新 data/top10.json")
+    return 0
 
 
 def update_readme(block):
@@ -236,16 +333,20 @@ def main():
     obs_bj = parse_time(obs)
     now_bj = datetime.now(BJ)
     named_rows = [r for r in rows if r["kind"] == "named"]
-    top10 = []
-    for r in rows[:10]:
-        d = dict(r)
-        d["label"] = fmt_label(r, named_rows)
-        top10.append(d)
-    named_top3 = []
-    for r in named_rows[:3]:
-        d = dict(r)
-        d["label"] = r["name"]
-        named_top3.append(d)
+
+    def decorate(items, named=False):
+        out = []
+        for r in items:
+            d = dict(r)
+            d["label"] = r["name"] if named else fmt_label(r, named_rows)
+            d["coord"] = fmt_coord(r["lat"], r["lon"])
+            d["current_temp_c"] = r["temp"]
+            out.append(d)
+        return out
+
+    top10 = decorate(rows[:TOP_N])
+    named_top10 = decorate(named_rows[:TOP_N], named=True)
+    named_top3 = named_top10[:3]
     winner = rows[0]
     res = {
         "date_bj": now_bj.strftime("%Y-%m-%d"),
@@ -261,12 +362,15 @@ def main():
         "winner_region": winner["region"],
         "winner_kind": winner["kind"],
         "top10": top10,
+        "named_top10": named_top10,
         "named_top3": named_top3,
         "source": "Open-Meteo /v1/forecast current.temperature_2m (ECMWF/GFS model, UTC)",
         "unit": "°C",
     }
     block = build_block(res)
+    top10_md = build_top10_md(res)
     write_json(os.path.join(ROOT, "data", "latest.json"), res)
+    write_top10(res, top10_md)
     update_readme(block)
     update_history(res)
     write_summary(block)
