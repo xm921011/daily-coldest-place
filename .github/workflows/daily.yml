@@ -1,0 +1,42 @@
+name: 每日查询世界最冷的地方
+
+on:
+  schedule:
+    # UTC 00:30 = 北京时间 08:30（GitHub Actions 定时可能有几十分钟到数小时延迟）
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-coldest-place
+  cancel-in-progress: false
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 查询气温并生成报告
+        run: python scripts/coldest.py
+
+      - name: 提交当天结果
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md data/latest.json history/
+          if git diff --staged --quiet; then
+            echo "结果无变化，跳过提交"
+          else
+            git commit -m "daily: 更新 $(date -u +%F) 全球最冷记录"
+            git push
+          fi
