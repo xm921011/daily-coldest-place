@@ -33,7 +33,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md data/latest.json history/
+          git add README.md TOP10.md data/latest.json data/top10.json history/
           if git diff --staged --quiet; then
             echo "结果无变化，跳过提交"
           else
