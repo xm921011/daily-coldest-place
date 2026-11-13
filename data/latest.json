@@ -1,104 +1,60 @@
 {
-  "date_bj": "2026-11-12",
-  "generated_at_bj": "2026-11-12 16:05:00",
-  "observed_at_utc": "2026-11-12T08:00",
-  "observed_at_bj": "2026-11-12 16:00",
+  "date_bj": "2026-11-13",
+  "generated_at_bj": "2026-11-13 09:39:39",
+  "observed_at_utc": "2026-11-13T01:30",
+  "observed_at_bj": "2026-11-13 09:30",
   "candidate_count": 79,
   "valid_count": 79,
   "missing_count": 0,
-  "winner_label": "格陵兰内陆格点（75.0°N / 40.0°W）",
-  "winner_temp": -46.2,
-  "winner_coord": "75.0°N / 40.0°W",
+  "winner_label": "格陵兰·Summit 冰盖最高点",
+  "winner_temp": -45.5,
+  "winner_coord": "72.5°N / 38.4°W",
   "winner_region": "格陵兰",
-  "winner_kind": "grid",
+  "winner_kind": "named",
   "top10": [
-    {
-      "name": "格陵兰内陆格点",
-      "lat": 74.97363,
-      "lon": -40.045868,
-      "region": "格陵兰",
-      "kind": "grid",
-      "temp": -46.2,
-      "label": "格陵兰内陆格点（75.0°N / 40.0°W）",
-      "coord": "75.0°N / 40.0°W",
-      "current_temp_c": -46.2
-    },
-    {
-      "name": "南极高原格点",
-      "lat": -87.97891,
-      "lon": 90.0,
-      "region": "南极洲",
-      "kind": "grid",
-      "temp": -41.9,
-      "label": "南极高原格点（88.0°S / 90.0°E）",
-      "coord": "88.0°S / 90.0°E",
-      "current_temp_c": -41.9
-    },
     {
       "name": "格陵兰·Summit 冰盖最高点",
       "lat": 72.513176,
       "lon": -38.418976,
       "region": "格陵兰",
       "kind": "named",
-      "temp": -41.8,
+      "temp": -45.5,
       "label": "格陵兰·Summit 冰盖最高点",
       "coord": "72.5°N / 38.4°W",
-      "current_temp_c": -41.8
+      "current_temp_c": -45.5
     },
     {
-      "name": "南极高原格点",
-      "lat": -82.073814,
-      "lon": 60.0,
-      "region": "南极洲",
+      "name": "格陵兰内陆格点",
+      "lat": 71.95079,
+      "lon": -42.06897,
+      "region": "格陵兰",
       "kind": "grid",
-      "temp": -41.6,
-      "label": "南极高原格点（82.1°S / 60.0°E）",
-      "coord": "82.1°S / 60.0°E",
-      "current_temp_c": -41.6
+      "temp": -45.2,
+      "label": "格陵兰·Summit 冰盖最高点 附近格点",
+      "coord": "72.0°N / 42.1°W",
+      "current_temp_c": -45.2
     },
     {
-      "name": "南极高原格点",
-      "lat": -87.97891,
-      "lon": 120.0,
-      "region": "南极洲",
+      "name": "格陵兰内陆格点",
+      "lat": 74.97363,
+      "lon": -40.045868,
+      "region": "格陵兰",
       "kind": "grid",
-      "temp": -41.2,
-      "label": "南极高原格点（88.0°S / 120.0°E）",
-      "coord": "88.0°S / 120.0°E",
-      "current_temp_c": -41.2
+      "temp": -44.7,
+      "label": "格陵兰内陆格点（75.0°N / 40.0°W）",
+      "coord": "75.0°N / 40.0°W",
+      "current_temp_c": -44.7
     },
     {
       "name": "南极高原格点",
-      "lat": -82.00352,
+      "lat": -78.98067,
       "lon": 90.0,
       "region": "南极洲",
       "kind": "grid",
-      "temp": -40.8,
-      "label": "南极高原格点（82.0°S / 90.0°E）",
-      "coord": "82.0°S / 90.0°E",
-      "current_temp_c": -40.8
-    },
-    {
-      "name": "南极高原格点",
-      "lat": -87.97891,
-      "lon": 60.0,
-      "region": "南极洲",
-      "kind": "grid",
-      "temp": -40.7,
-      "label": "南极高原格点（88.0°S / 60.0°E）",
-      "coord": "88.0°S / 60.0°E",
-      "current_temp_c": -40.7
-    },
-    {
-      "name": "南极高原格点",
-      "lat": -87.97891,
-      "lon": 150.0,
-      "region": "南极洲",
-      "kind": "grid",
-      "temp": -40.2,
-      "label": "南极高原格点（88.0°S / 150.0°E）",
-      "coord": "88.0°S / 150.0°E",
-      "current_temp_c": -40.2
+      "temp": -42.9,
+      "label": "南极高原格点（79.0°S / 90.0°E）",
+      "coord": "79.0°S / 90.0°E",
+      "current_temp_c": -42.9
     },
     {
       "name": "南极·冰穹A / 昆仑站 Dome A",
@@ -106,21 +62,65 @@
       "lon": 77.14285,
       "region": "南极洲",
       "kind": "named",
-      "temp": -40.0,
+      "temp": -42.7,
       "label": "南极·冰穹A / 昆仑站 Dome A",
       "coord": "80.5°S / 77.1°E",
-      "current_temp_c": -40.0
+      "current_temp_c": -42.7
+    },
+    {
+      "name": "南极·沃斯托克站 Vostok",
+      "lat": -78.558876,
+      "lon": 106.70658,
+      "region": "南极洲",
+      "kind": "named",
+      "temp": -41.9,
+      "label": "南极·沃斯托克站 Vostok",
+      "coord": "78.6°S / 106.7°E",
+      "current_temp_c": -41.9
     },
     {
       "name": "南极高原格点",
-      "lat": -85.02636,
+      "lat": -87.97891,
       "lon": 90.0,
       "region": "南极洲",
       "kind": "grid",
-      "temp": -40.0,
-      "label": "南极高原格点（85.0°S / 90.0°E）",
-      "coord": "85.0°S / 90.0°E",
-      "current_temp_c": -40.0
+      "temp": -41.8,
+      "label": "南极高原格点（88.0°S / 90.0°E）",
+      "coord": "88.0°S / 90.0°E",
+      "current_temp_c": -41.8
+    },
+    {
+      "name": "南极·冰穹C / 康科迪亚站 Dome C",
+      "lat": -75.114235,
+      "lon": 123.33333,
+      "region": "南极洲",
+      "kind": "named",
+      "temp": -41.5,
+      "label": "南极·冰穹C / 康科迪亚站 Dome C",
+      "coord": "75.1°S / 123.3°E",
+      "current_temp_c": -41.5
+    },
+    {
+      "name": "南极高原格点",
+      "lat": -82.00352,
+      "lon": 90.0,
+      "region": "南极洲",
+      "kind": "grid",
+      "temp": -41.2,
+      "label": "南极高原格点（82.0°S / 90.0°E）",
+      "coord": "82.0°S / 90.0°E",
+      "current_temp_c": -41.2
+    },
+    {
+      "name": "南极高原格点",
+      "lat": -87.97891,
+      "lon": 60.0,
+      "region": "南极洲",
+      "kind": "grid",
+      "temp": -41.1,
+      "label": "南极高原格点（88.0°S / 60.0°E）",
+      "coord": "88.0°S / 60.0°E",
+      "current_temp_c": -41.1
     }
   ],
   "named_top10": [
@@ -130,10 +130,10 @@
       "lon": -38.418976,
       "region": "格陵兰",
       "kind": "named",
-      "temp": -41.8,
+      "temp": -45.5,
       "label": "格陵兰·Summit 冰盖最高点",
       "coord": "72.5°N / 38.4°W",
-      "current_temp_c": -41.8
+      "current_temp_c": -45.5
     },
     {
       "name": "南极·冰穹A / 昆仑站 Dome A",
@@ -141,21 +141,10 @@
       "lon": 77.14285,
       "region": "南极洲",
       "kind": "named",
-      "temp": -40.0,
+      "temp": -42.7,
       "label": "南极·冰穹A / 昆仑站 Dome A",
       "coord": "80.5°S / 77.1°E",
-      "current_temp_c": -40.0
-    },
-    {
-      "name": "南极·冰穹C / 康科迪亚站 Dome C",
-      "lat": -75.114235,
-      "lon": 123.33333,
-      "region": "南极洲",
-      "kind": "named",
-      "temp": -38.9,
-      "label": "南极·冰穹C / 康科迪亚站 Dome C",
-      "coord": "75.1°S / 123.3°E",
-      "current_temp_c": -38.9
+      "current_temp_c": -42.7
     },
     {
       "name": "南极·沃斯托克站 Vostok",
@@ -163,10 +152,21 @@
       "lon": 106.70658,
       "region": "南极洲",
       "kind": "named",
-      "temp": -38.7,
+      "temp": -41.9,
       "label": "南极·沃斯托克站 Vostok",
       "coord": "78.6°S / 106.7°E",
-      "current_temp_c": -38.7
+      "current_temp_c": -41.9
+    },
+    {
+      "name": "南极·冰穹C / 康科迪亚站 Dome C",
+      "lat": -75.114235,
+      "lon": 123.33333,
+      "region": "南极洲",
+      "kind": "named",
+      "temp": -41.5,
+      "label": "南极·冰穹C / 康科迪亚站 Dome C",
+      "coord": "75.1°S / 123.3°E",
+      "current_temp_c": -41.5
     },
     {
       "name": "南极·里奇B Ridge B",
@@ -174,10 +174,10 @@
       "lon": 95.05102,
       "region": "南极洲",
       "kind": "named",
-      "temp": -38.6,
+      "temp": -40.6,
       "label": "南极·里奇B Ridge B",
       "coord": "76.5°S / 95.1°E",
-      "current_temp_c": -38.6
+      "current_temp_c": -40.6
     },
     {
       "name": "南极·阿蒙森-斯科特南极点站",
@@ -185,10 +185,10 @@
       "lon": 0.0,
       "region": "南极洲",
       "kind": "named",
-      "temp": -38.4,
+      "temp": -39.4,
       "label": "南极·阿蒙森-斯科特南极点站",
       "coord": "89.9°S / 0.0°E",
-      "current_temp_c": -38.4
+      "current_temp_c": -39.4
     },
     {
       "name": "格陵兰·北部内陆",
@@ -196,10 +196,10 @@
       "lon": -40.114258,
       "region": "格陵兰",
       "kind": "named",
-      "temp": -38.4,
+      "temp": -39.2,
       "label": "格陵兰·北部内陆",
       "coord": "78.0°N / 40.1°W",
-      "current_temp_c": -38.4
+      "current_temp_c": -39.2
     },
     {
       "name": "南极·富士冰穹 Dome Fuji",
@@ -207,10 +207,10 @@
       "lon": 39.619564,
       "region": "南极洲",
       "kind": "named",
-      "temp": -37.9,
+      "temp": -37.5,
       "label": "南极·富士冰穹 Dome Fuji",
       "coord": "77.4°S / 39.6°E",
-      "current_temp_c": -37.9
+      "current_temp_c": -37.5
     },
     {
       "name": "南极·高原站 Plateau",
@@ -218,21 +218,21 @@
       "lon": 40.44304,
       "region": "南极洲",
       "kind": "named",
-      "temp": -37.1,
+      "temp": -34.6,
       "label": "南极·高原站 Plateau",
       "coord": "79.2°S / 40.4°E",
-      "current_temp_c": -37.1
+      "current_temp_c": -34.6
     },
     {
-      "name": "俄罗斯·奥伊米亚康 Oymyakon",
-      "lat": 63.444637,
-      "lon": 142.77487,
+      "name": "俄罗斯·上扬斯克 Verkhoyansk",
+      "lat": 67.521965,
+      "lon": 133.33334,
       "region": "西伯利亚",
       "kind": "named",
-      "temp": -32.1,
-      "label": "俄罗斯·奥伊米亚康 Oymyakon",
-      "coord": "63.4°N / 142.8°E",
-      "current_temp_c": -32.1
+      "temp": -32.8,
+      "label": "俄罗斯·上扬斯克 Verkhoyansk",
+      "coord": "67.5°N / 133.3°E",
+      "current_temp_c": -32.8
     }
   ],
   "named_top3": [
@@ -242,10 +242,10 @@
       "lon": -38.418976,
       "region": "格陵兰",
       "kind": "named",
-      "temp": -41.8,
+      "temp": -45.5,
       "label": "格陵兰·Summit 冰盖最高点",
       "coord": "72.5°N / 38.4°W",
-      "current_temp_c": -41.8
+      "current_temp_c": -45.5
     },
     {
       "name": "南极·冰穹A / 昆仑站 Dome A",
@@ -253,21 +253,21 @@
       "lon": 77.14285,
       "region": "南极洲",
       "kind": "named",
-      "temp": -40.0,
+      "temp": -42.7,
       "label": "南极·冰穹A / 昆仑站 Dome A",
       "coord": "80.5°S / 77.1°E",
-      "current_temp_c": -40.0
+      "current_temp_c": -42.7
     },
     {
-      "name": "南极·冰穹C / 康科迪亚站 Dome C",
-      "lat": -75.114235,
-      "lon": 123.33333,
+      "name": "南极·沃斯托克站 Vostok",
+      "lat": -78.558876,
+      "lon": 106.70658,
       "region": "南极洲",
       "kind": "named",
-      "temp": -38.9,
-      "label": "南极·冰穹C / 康科迪亚站 Dome C",
-      "coord": "75.1°S / 123.3°E",
-      "current_temp_c": -38.9
+      "temp": -41.9,
+      "label": "南极·沃斯托克站 Vostok",
+      "coord": "78.6°S / 106.7°E",
+      "current_temp_c": -41.9
     }
   ],
   "source": "Open-Meteo /v1/forecast current.temperature_2m (ECMWF/GFS model, UTC)",
